@@ -6,6 +6,6 @@
         public Guid AssessmentId { get; set; }
         public decimal Score { get; set; }
         public string? Remarks { get; set; }
-        public string Grade { get; set; } 
+       
     }
 }

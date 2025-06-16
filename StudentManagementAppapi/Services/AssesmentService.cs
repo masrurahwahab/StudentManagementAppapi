@@ -39,7 +39,7 @@ namespace StudentManagementAppapi.Services
                 var assessment = new Assessment
                 {
                     Id = Guid.NewGuid(),
-                    Title = createAssessmentDto.Title,
+                    Title = createAssessmentDto.Title,                  
                     AssessmentType = createAssessmentDto.AssessmentType,
                     MaxScore = createAssessmentDto.MaxScore,
                     DateGiven = createAssessmentDto.DateGiven,

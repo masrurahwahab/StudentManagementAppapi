@@ -34,6 +34,7 @@ builder.Services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
 builder.Services.AddScoped<IAcademicTermRepository, AcademicTermRepository>();
 builder.Services.AddScoped<IDisciplinaryRepository, DisciplinaryRepository>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+builder.Services.AddScoped<IClassSubjectRepository, ClassSubjectRepository>();
 
 
 // Service Dependencies
@@ -52,6 +53,7 @@ builder.Services.AddScoped<IAssessmentService, AssessmentService>();
 builder.Services.AddScoped<IAcademicTermService, AcademicTermService>();
 builder.Services.AddScoped<IDisciplinaryService, DisciplinaryService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IClassSubjectService, ClassSubjectService>();
 
 
 builder.Services.AddScoped<IPasswordHashing, PasswordHashing>();

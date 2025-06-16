@@ -27,7 +27,6 @@ namespace StudentManagementAppapi.Services
                     StudentId = createResultDto.StudentId,
                     AssessmentId = createResultDto.AssessmentId,
                     Score = createResultDto.Score,
-                    Grade = createResultDto.Grade,
                     Remarks = createResultDto.Remarks,
                     RecordedDate = DateTime.Now
                 };
@@ -123,7 +122,7 @@ namespace StudentManagementAppapi.Services
                 }
 
                 result.Score = updateDto.Score;
-                result.Grade = updateDto.Grade;
+               
                 result.Remarks = updateDto.Remarks;
                 result.UpdatedAt = DateTime.Now;
 
@@ -192,7 +191,7 @@ namespace StudentManagementAppapi.Services
                 AssessmentTitle = result.Assessment.AssessmentType ,
                 SubjectName = result.Assessment?.ClassSubject?.Subject?.Name ?? "",
                 Score = result.Score,
-                Grade = result.Grade,
+                
                 Remarks = result.Remarks,
                 RecordedDate = result.RecordedDate
             };

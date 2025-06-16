@@ -24,6 +24,7 @@ namespace StudentManagementAppapi.Services
                 var term = new AcademicTerm
                 {
                     Name = createTermDto.Name,
+                    AcademicYear = createTermDto.AcademicYear,
                     StartDate = createTermDto.StartDate,
                     EndDate = createTermDto.EndDate,
                     IsCurrent = false,
@@ -81,8 +82,9 @@ namespace StudentManagementAppapi.Services
                 if (term == null)
                     return ResponseWrapper<AcademicTermDto>.Failure("Academic term not found");
 
-                // Manual update
+            
                 term.Name = updateDto.Name;
+                term.AcademicYear = updateDto.AcademicYear;
                 term.StartDate = updateDto.StartDate;
                 term.EndDate = updateDto.EndDate;
                 term.UpdatedAt = DateTime.UtcNow;

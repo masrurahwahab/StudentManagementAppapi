@@ -12,7 +12,7 @@ namespace StudentManagementAppapi.DTO.ResponseModel
         public string SubjectName { get; set; } = string.Empty;
         public decimal Score { get; set; }
         public decimal MaxScore { get; set; }
-        public string Grade { get; set; } = string.Empty;
+        
         public string? Remarks { get; set; }
         public DateTime RecordedDate { get; set; }
     }

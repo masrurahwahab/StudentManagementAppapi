@@ -13,9 +13,9 @@ namespace StudentManagementAppapi.Model.Entities
         [Required]
         public decimal Score { get; set; }
 
-        [Required]
-        [StringLength(2)]
-        public string Grade { get; set; } = string.Empty;
+        //[Required]
+        //[StringLength(2)]
+        //public string Grade { get; set; } = string.Empty;
 
         [StringLength(200)]
         public string? Remarks { get; set; }
