@@ -20,7 +20,7 @@ namespace StudentManagementAppapi.Controllers
         public IActionResult ResetPassword(Guid userId, [FromBody] ForgetPassword model)
         {
             var response = _settingService.ResetPassword(userId, model);
-            return StatusCode(response.IsSuccessful ? 200 : 400, response);
+            return StatusCode(response.Successs ? 200 : 400, response);
         }
     }
 

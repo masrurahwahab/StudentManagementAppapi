@@ -13,7 +13,7 @@ namespace StudentManagementAppapi.Settings.Implementation
             _repository = repository;
         }
 
-        public ResponseWrapperl<bool> ResetPassword(Guid userId, ForgetPassword model)
+        public ResponseWrapper<bool> ResetPassword(Guid userId, ForgetPassword model)
         {
             try
             {
@@ -21,27 +21,27 @@ namespace StudentManagementAppapi.Settings.Implementation
 
                 if (result == null)
                 {
-                    return new ResponseWrapperl<bool>
+                    return new ResponseWrapper<bool>
                     {
-                        IsSuccessful = false,
-                        Messages = new List<string> { "Invalid former password or user not found." },
+                        Successs = false,
+                        Message = "Invalid former password or user not found." ,
                         Data = false
                     };
                 }
 
-                return new ResponseWrapperl<bool>
+                return new ResponseWrapper<bool>
                 {
-                    IsSuccessful = true,
-                    Messages = new List<string> { "Password updated successfully." },
+                    Successs = true,
+                    Message = "Password updated successfully.",
                     Data = true
                 };
             }
             catch (Exception ex)
             {
-                return new ResponseWrapperl<bool>
+                return new ResponseWrapper<bool>
                 {
-                    IsSuccessful = false,
-                    Messages = new List<string> { $"An error occurred: {ex.Message}" },
+                    Successs = false,
+                    Message =  $"An error occurred: {ex.Message}",
                     Data = false
                 };
             }

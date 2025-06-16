@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentManagementAppapi.Contract.Services;
 using StudentManagementAppapi.DTO.RequestModel;
@@ -16,32 +17,28 @@ namespace StudentManagementAppapi.Controllers
             _authService = authService;
         }
 
-        [HttpPost("register")]
-        public IActionResult Register([FromBody] SiginRequestModel model)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = _authService.Register(model.UserName, model.Email, model.Password,model.ConfirmPassword);
-
-            if (!result)
-                return Conflict("User already exists with this email.");
-
-            return Ok("User registered successfully.");
-        }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequestModel model)
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] LoginRequestModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = _authService.Login(model.Email, model.Password);
+            try
+            {
+                var result = await _authService.LoginAsync(model.Email, model.Password);
 
-            if (!result)
-                return Unauthorized("Invalid email or password.");
+                if (!result.Successs)
+                    return Unauthorized(result.Message ?? "Invalid email or password.");
 
-            return Ok("Login successful.");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                
+                return StatusCode(500, "An error occurred during login.");
+            }
         }
     }
 

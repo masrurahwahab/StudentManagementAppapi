@@ -1,9 +1,13 @@
-﻿namespace StudentManagementAppapi.Contract.Services
+﻿using StudentManagementAppapi.DTO.RequestModel;
+using StudentManagementAppapi.DTO.ResponseModel;
+using StudentManagementAppapi.DTO.Wrapper;
+
+namespace StudentManagementAppapi.Contract.Services
 {
     public interface IAuthService
     {
-        bool Register(string username, string email, string password,string confirmpassword);
-        bool Login(string email, string password);
+        Task<LoginResponse> LoginAsync(string email, string password);
+        //Task<ResponseWrapper<UserResponseModel>> GetCurrentUserAsync(Guid userId);
+        //Task<ResponseWrapper<UserResponseModel>> RegisterUserAsync(CreateUserRequestModel createUserDto);
     }
-
 }

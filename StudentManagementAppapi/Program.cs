@@ -16,26 +16,55 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<ICourseRegistrationRepository, CourseRegistrationRepository>();
-builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ISettingRepository, SettingRepository>();
-builder.Services.AddScoped<ISettingService, SettingService>();
+// Repository Dependencies
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IClassRepository, ClassRepository>();
+builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<IResultRepository, ResultRepository>();
+builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+builder.Services.AddScoped<IAssessmentRepository, AssessmentRepository>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
-builder.Services.AddScoped<ICourseRegistrationService, CourseRegistrationService>();
+builder.Services.AddScoped<ISettingRepository, SettingRepository>();
+builder.Services.AddScoped<IParentRepository, ParentRepository>();
+builder.Services.AddScoped<IClassSubjectRepository, ClassSubjectRepository>();
+builder.Services.AddScoped<ITermReportRepository, TermReportRepository>();
+builder.Services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
+builder.Services.AddScoped<IAcademicTermRepository, AcademicTermRepository>();
+builder.Services.AddScoped<IDisciplinaryRepository, DisciplinaryRepository>();
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+
+
+// Service Dependencies
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IClassService, ClassService>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddScoped<ISubjectService, SubjectService>();
+builder.Services.AddScoped<IResultService, ResultService>();
+builder.Services.AddScoped<IAttendanceService, AttendanceService>();
+builder.Services.AddScoped<ISettingService, SettingService>();
+builder.Services.AddScoped<IParentService, ParentService>();
+builder.Services.AddScoped<ITermReportService, TermReportService>();
+builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
+builder.Services.AddScoped<IAssessmentService, AssessmentService>();
+builder.Services.AddScoped<IAcademicTermService, AcademicTermService>();
+builder.Services.AddScoped<IDisciplinaryService, DisciplinaryService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
+
+
 builder.Services.AddScoped<IPasswordHashing, PasswordHashing>();
-builder.Services.AddScoped<IInstructorService, InstructorService>();
-builder.Services.AddScoped<ISchoolClassRepository, SchoolClassRepository>();
-builder.Services.AddScoped<ISchoolClassService, SchoolClassService>();
-builder.Services.AddScoped<ICoursesRepository, CourseRepository>();
-builder.Services.AddScoped<ICourseService, CourseService>();
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<StudentManagementDbContext>(option => option.UseMySql(connection, ServerVersion.AutoDetect(connection)));
 
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
 
 var app = builder.Build();
 

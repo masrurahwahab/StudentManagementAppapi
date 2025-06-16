@@ -5,7 +5,7 @@ namespace StudentManagementAppapi.Settings.Interfaces
 {
     public interface ISettingService
     {
-        ResponseWrapperl<bool> ResetPassword(Guid userId, ForgetPassword model);
+        ResponseWrapper<bool> ResetPassword(Guid userId, ForgetPassword model);
     }
 
 }

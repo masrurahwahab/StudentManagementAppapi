@@ -23,8 +23,8 @@ namespace StudentManagementAppapi.Settings.Implementation
             if (user == null)
                 return null;
 
-            var salt = Convert.FromBase64String(user.PasswordSalt);
-            var isPasswordValid = _passwordHashing.VerifyPassword(formerPassword, user.PasswordHash, salt);
+            
+            var isPasswordValid = _passwordHashing.VerifyPassword(formerPassword, user.PasswordHash, user.Salt);
 
             if (!isPasswordValid)
                 return null;
@@ -33,7 +33,7 @@ namespace StudentManagementAppapi.Settings.Implementation
             var newHashedPassword = _passwordHashing.HashPassword(newPassword, newSalt);
 
             user.PasswordHash = newHashedPassword;
-            user.PasswordSalt = Convert.ToBase64String(newSalt);
+            user.Salt =newSalt;
 
             _context.Users.Update(user);
             _context.SaveChanges();

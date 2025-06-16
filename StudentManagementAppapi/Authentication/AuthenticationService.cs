@@ -1,5 +1,6 @@
 ﻿using StudentManagementAppapi.Contract.Repository;
 using StudentManagementAppapi.Contract.Services;
+using StudentManagementAppapi.DTO.Wrapper;
 using StudentManagementAppapi.Model.Entities;
 using StudentManagementAppapi.Model.Enum;
 using StudentManagementAppapi.PasswordValidation;
@@ -10,50 +11,36 @@ namespace StudentManagementAppapi.Authentication
     {
         private readonly ILoginRepository _loginRepository;
         private readonly IPasswordHashing _passwordHashing;
+        private readonly IUserRepository _userRepository;
 
-        public AuthService(ILoginRepository loginRepository, IPasswordHashing passwordHashing)
+        public AuthService(ILoginRepository loginRepository, IPasswordHashing passwordHashing
+             ,IUserRepository userRepository)
         {
             _loginRepository = loginRepository;
             _passwordHashing = passwordHashing;
+            _userRepository = userRepository;
         }
 
-        public bool Register(string username, string email, string password, string confirmPassword)
+        public async Task<LoginResponse> LoginAsync(string email, string password)
         {
-            if (password != confirmPassword)
-                return false;
-
-            var existingUser = _loginRepository.GetUserByEmail(email);
-            if (existingUser != null)
-                return false;
-
-            var salt = _passwordHashing.GenerateSalt();
-            var hash = _passwordHashing.HashPassword(password, salt);
-
-            var newUser = new User
-            {
-                Id = Guid.NewGuid(),
-                Username = username,
-                Email = email,
-                PasswordHash = hash,
-                PasswordSalt = Convert.ToBase64String(salt),
-                Role = Role.Student,
-                ConfirmPassword= confirmPassword
-            };
-
-            _loginRepository.CreateUser(newUser);
-            _loginRepository.SaveChanges(); 
-            return true;
-        }
-
-        public bool Login(string email, string password)
-        {
-            var user = _loginRepository.GetUserByEmail(email);
+            var user = await _userRepository.GetByEmailAsync(email);
             if (user == null)
-                return false;
+                return new LoginResponse { Successs = false, Message = "User not found" };
 
-            var salt = Convert.FromBase64String(user.PasswordSalt); 
-            return _passwordHashing.VerifyPassword(password, user.PasswordHash, salt);
+            bool isValid = _passwordHashing.VerifyPassword(password, user.PasswordHash, user.Salt);
+            if (!isValid)
+                return new LoginResponse { Successs = false, Message = "Invalid password" };
+
+           
+            return new LoginResponse
+            {
+                Successs = true,
+                Message = "Login successful",
+                
+            };
         }
+
+
     }
 
 }

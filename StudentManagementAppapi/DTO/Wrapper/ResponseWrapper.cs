@@ -1,27 +1,30 @@
 ﻿namespace StudentManagementAppapi.DTO.Wrapper
 {
-    public class ResponseWrapperl<T>
+   
+    public class ResponseWrapper<T>
     {
-        public bool IsSuccessful { get; set; }
-        public List<string> Messages { get; set; }
-        public T Data { get; set; }
+        public bool Successs { get; set; }
+        public string Message { get; set; } = string.Empty;
+        public T? Data { get; set; }
 
-        public ResponseWrapperl<T> Success(T data, string message = null)
+        public static ResponseWrapper<T> Success(T data, string message = "")
         {
-            IsSuccessful = true;
-            Messages = [message];
-            Data = data;
-
-            return this;
+            return new ResponseWrapper<T>
+            {
+                Successs = true,
+                Message = message,
+                Data = data
+            };
         }
 
-        public ResponseWrapperl<T> Failed(string message)
+        public static ResponseWrapper<T> Failure(string message, T? data = default)
         {
-            IsSuccessful = false;
-            Messages = [message];
-
-            return this;
+            return new ResponseWrapper<T>
+            {
+                Successs = false,
+                Message = message,
+                Data = data
+            };
         }
     }
-
 }
