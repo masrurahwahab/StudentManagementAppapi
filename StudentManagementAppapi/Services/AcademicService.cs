@@ -156,7 +156,7 @@ namespace StudentManagementAppapi.Services
             return new AcademicTermDto
             {
                 Id = term.Id,
-                Name = term.Name,
+                Term = term.Name.ToString(),
                 AcademicYear = term.AcademicYear,
                 StartDate = term.StartDate,
                 EndDate = term.EndDate,
